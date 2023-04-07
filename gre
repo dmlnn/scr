@@ -1,0 +1,36 @@
+import os
+
+local_ip = input("IP etoi mashini: ")
+endpoint_ip = input("IP kone4noi mashini: ")
+gre_ip = input("IP dlya GRE: ")
+
+with open("/etc/network/interfaces", 'a') as f:
+    f.write(f'''
+\n\nauto gre30
+iface gre30 inet tunnel
+address {gre_ip}
+netmask 255.255.255.252
+mode gre
+local {local_ip}
+endpoint {endpoint_ip}
+ttl 255
+''')
+
+os.system("apt install libreswan -y")
+
+with open("/etc/ipsec.conf", "a") as f:
+    f.write(f'''
+\n\nconn "vpn"
+auto=start
+type=tunnel
+authby=secret
+ike=3des-sha1;dh14
+esp=aes-sha2
+left={local_ip}
+right={endpoint_ip}
+leftprotoport=gre
+rightprotoport=gre
+''')
+
+with open("/etc/ipsec.secrets", "a") as f:
+    f.write(f'{local_ip} {endpoint_ip} : PSK "SLOVOPAROL"')
