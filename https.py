@@ -3,17 +3,25 @@ import os
 
 name = input('Name for your site(www.example.local): ')
 ip_cl = input('ip clienta: ')
+
 os.system('systemctl disable firewalld') 
 os.system('systemctl stop firewalld') 
 os.system('yum install httpd mod_ssl -y') 
 os.system('mkdir /var/www/html/out') 
 os.system(f'echo {name} > /var/www/html/out/index.html') 
 
-with open('/etc/httpd/conf/httpd.conf', 'w+') as f:
+with open('/etc/httpd/conf/httpd.conf', 'r') as f:
   old = f.read()
+
+with open('/etc/httpd/conf/httpd.conf', 'w') as f:
   new1 = old.replace('DocumentRoot “/var/www/html/"', 'DocumentRoot “/var/www/html/out”')
-  new2 = old.replace('<Directory “/var/www/html/">', '<Directory “/var/www/html/out”>')
   f.write(new1)
+  
+with open('/etc/httpd/conf/httpd.conf', 'r') as f:
+  old = f.read()
+ 
+with open('/etc/httpd/conf/httpd.conf', 'w') as f:
+  new2 = old.replace('<Directory “/var/www/html/">', '<Directory “/var/www/html/out”>')
   f.write(new2)
 
 with open('/etc/httpd/conf/httpd.conf', 'a') as f:
@@ -26,7 +34,7 @@ os.system('yum install epel-release -y')
 os.system('yum update -y')
 os.system('yum install easy-rsa openvpn -y')
 os.system('cp -r /usr/share/easy-rsa /etc/openvpn/')
-os.system('cd /etc/openvpn/easy-rsa/3/')
+os.chdir("/etc/openvpn/easy-rsa/3")
 with open('vars', 'w+') as f:
   f.write('''set_var EASYRSA “$PWD”
 set_var EASYRSA_PKI “$EASYRSA/pki”
@@ -47,23 +55,35 @@ set_var EASYRSA_EXT_DIR    “$EASYRSA/x509-types”
 set_var EASYRSA_SSL_CONF    “$EASYRSA/openssl-1.0.conf”
 set_var EASYRSA_DIGES    “sha512”''')
 os.system('chmod +x vars')
-os.system('/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/init-pki')
-os.system('/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/build-ca') 
-os.system(f'/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/gen-req {name} nopass')
-os.system(f'/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/sign-req server {name}')
+os.system('./easyrsa init-pki')
+os.system('./easyrsa build-ca') 
+os.system(f'./easyrsa gen-req {name} nopass')
+os.system(f'./easyrsa sign-req server {name}')
+os.chdir('/root')
 os.system(f'cp /etc/openvpn/easy-rsa/3/pki/private/{name}.key /etc/')
 os.system(f'cp /etc/openvpn/easy-rsa/3/pki/issued/{name}.crt /etc/')
 
-with open('/etc/httpd/conf.d/ssl.conf', 'w+') as f:
+with open('/etc/httpd/conf.d/ssl.conf', 'r') as f:
   old = f.read()
-  new1 = old.replace(f'SSLCertificateFile /etc/openvpn/easy-rsa/3/pki/issued/{name}.crt', f'SSLCertificateFile /etc/{name}.crt')
-  new2 = old.replace(f'SSLCertificateKeyFile /etc/openvpn/easy-rsa/3/pki/private/{name}.key', f'SSLCertificateKeyFile /etc/{name}.key')
-  f.write(new1)
-  f.write(new2)
- 
-with open('/etc/selinux/config', 'w+') as f:
-  f.write((f.read()).replace('SELINUX=enforcing', 'SELINUX=disabled'))
 
+with open('/etc/httpd/conf.d/ssl.conf', 'w') as f:
+  new1 = old.replace(f'SSLCertificateFile /etc/openvpn/easy-rsa/3/pki/issued/{name}.crt', f'SSLCertificateFile /etc/{name}.crt')
+  f.write(new1)
+
+with open('/etc/httpd/conf.d/ssl.conf', 'r') as f:
+  old = f.read()
+  
+with open('/etc/httpd/conf.d/ssl.conf', 'w') as f:
+  new2 = old.replace(f'SSLCertificateKeyFile /etc/openvpn/easy-rsa/3/pki/private/{name}.key', f'SSLCertificateKeyFile /etc/{name}.key')
+  f.write(new2)
+  
+with open('/etc/selinux/config', 'r') as f:
+  old = f.read()
+  
+with open('/etc/selinux/config', 'w') as f:
+  new = old.replace('SELINUX=enforcing', 'SELINUX=disabled')
+  f.write(new)
+  
 os.system('systemctl restart httpd') 
 os.system(f'scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc/openvpn/client/')
 print(f'Your site: {name}')
