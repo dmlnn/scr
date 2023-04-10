@@ -47,10 +47,10 @@ set_var EASYRSA_EXT_DIR    “$EASYRSA/x509-types”
 set_var EASYRSA_SSL_CONF    “$EASYRSA/openssl-1.0.conf”
 set_var EASYRSA_DIGES    “sha512”''')
 os.system('chmod +x vars')
-os.system('/etc/openvpn/easy-rsa/3/./easyrsa init-pki')
-os.system('/etc/openvpn/easy-rsa/3/./easyrsa build-ca') 
-os.system(f'/etc/openvpn/easy-rsa/3/./easyrsa gen-req {name} nopass')
-os.system(f'/etc/openvpn/easy-rsa/3/./easyrsa sign-req server {name}')
+os.system('/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/init-pki')
+os.system('/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/build-ca') 
+os.system(f'/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/gen-req {name} nopass')
+os.system(f'/etc/openvpn/easy-rsa/3/./easyrsa /etc/openvpn/easy-rsa/3/sign-req server {name}')
 os.system(f'cp /etc/openvpn/easy-rsa/3/pki/private/{name}.key /etc/')
 os.system(f'cp /etc/openvpn/easy-rsa/3/pki/issued/{name}.crt /etc/')
 
