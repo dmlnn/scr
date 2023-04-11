@@ -2,6 +2,7 @@
 import os
 import subprocess
 
+input('!!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh !!!')
 command = ['hostname','-I']
 output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
 ip_srv = str(output).split()[1]
