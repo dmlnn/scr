@@ -106,15 +106,15 @@ def debian():
   os.system(f'sshpass -proot ssh root@{ip_cl} apt install ca-certificates lynx -y')
   os.system(f'sshpass -proot ssh root@{ip_cl} cp /etc/ca.crt /usr/local/share/ca-certificates/')
   os.system(f'sshpass -proot ssh root@{ip_cl} update-ca-certificates')
-  os.system(f'sshpass -proot ssh root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts')
 def centos():
   os.system(f'sshpass -proot ssh root@{ip_cl} yum install ca-certificates lynx -y')
   os.system(f'sshpass -proot ssh root@{ip_cl} cp /etc/ca.crt /etc/pki/ca-trust/source/anchors')
   os.system(f'sshpass -proot ssh root@{ip_cl} update-ca-trust')
-  os.system(f'sshpass -proot ssh root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts')
   
 if os_cl == "1": debian()
 elif os_cl == "2": centos()
 else: print("Nevravilno vvedena os clienta, podkluchai ego sam")
 
-print(f'Proverka na cliente: lynx {name}')
+print(f'''4tobi klient zarabotal napishi na nem eto:
+echo {ip_srv} {name} >> /etc/hosts
+Dalshe mojno proveryat(lynx {name})''')
