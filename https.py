@@ -8,6 +8,7 @@ apt install ssh -y
 nano /etc/ssh/sshd_config
 Port 22
 PermitRootLogin yes
+systemctl restart ssh
 ''')
 command = ['hostname','-I']
 output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
