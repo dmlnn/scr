@@ -105,7 +105,7 @@ if os_cl == "1": debian()
 elif os_cl == "2": centos()
 else: print("Nevravilno vvedena os clienta, podkluchai ego sam")
 def debian():
-  os.system(f'sshpass -proot root@{ip_cl} apt install ca-certificates lynx -y'
+  os.system(f'sshpass -proot root@{ip_cl} apt install ca-certificates lynx -y')
   os.system(f'sshpass -proot root@{ip_cl} cp /etc/ca.crt /usr/local/share/ca-certificates/')
   os.system(f'sshpass -proot root@{ip_cl} update-ca-certificates')
   os.system(f'sshpass -proot root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts')
