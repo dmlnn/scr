@@ -2,12 +2,14 @@
 import os
 
 name = input('Name for your site(www.example.local): ')
+ip_srv = input('ip servera: ')
 ip_cl = input('ip clienta: ')
+os_cl = input('y clienta debian ili centos?(1 or 2): ')
 name_vars = 'root@' + name.split('.')[1] + '.' + name.split('.')[2]
 
 os.system('systemctl disable firewalld') 
 os.system('systemctl stop firewalld') 
-os.system('yum install httpd mod_ssl -y') 
+os.system('yum install httpd mod_ssl sshpass -y') 
 os.system('mkdir /var/www/html/out') 
 os.system(f'echo {name} > /var/www/html/out/index.html') 
 
@@ -87,5 +89,19 @@ with open('/etc/selinux/config', 'w') as f:
   f.write(new)
   
 os.system('systemctl restart httpd') 
-os.system(f'scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc/openvpn/client/')
-print(f'Your site: {name}')
+os.system(f'scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc/')
+if os_cl == "1": debian()
+  elif os_cl == "2": centos()
+    else: print("Nevravilno vvedena os clienta, podkluchai ego sam")
+def debian():
+  os.system(f'sshpass -proot root@{ip_cl} apt install ca-certificates lynx -y)
+  os.system(f'sshpass -proot root@{ip_cl} cp /etc/ca.crt /usr/local/share/ca-certificates/)
+  os.system(f'sshpass -proot root@{ip_cl} update-ca-certificates)
+  os.system(f'sshpass -proot root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts)
+def centos():
+  os.system(f'sshpass -proot root@{ip_cl} yum install ca-certificates lynx -y)
+  os.system(f'sshpass -proot root@{ip_cl} cp /etc/ca.crt /etc/pki/ca-trust/source/anchors)
+  os.system(f'sshpass -proot root@{ip_cl} update-ca-trust)
+  os.system(f'sshpass -proot root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts)
+  
+print(f'Proverka na cliente: lynx {name}')
