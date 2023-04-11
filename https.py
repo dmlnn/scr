@@ -12,7 +12,7 @@ systemctl restart ssh
 ''')
 command = ['hostname','-I']
 output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
-ip_srv = str(output).split()[1]
+ip_srv = str(output_com).split()[1]
 name = input('Name for your site(www.example.local): ')
 ip_cl = input('ip clienta: ')
 os_cl = input('y clienta debian ili centos?(1 or 2): ')
