@@ -15,14 +15,14 @@ with open('/etc/httpd/conf/httpd.conf', 'r') as f:
   old = f.read()
 
 with open('/etc/httpd/conf/httpd.conf', 'w') as f:
-  new1 = old.replace('DocumentRoot “/var/www/html/"', 'DocumentRoot “/var/www/html/out”')
+  new1 = old.replace('DocumentRoot "/var/www/html"', 'DocumentRoot "/var/www/html/out"')
   f.write(new1)
   
 with open('/etc/httpd/conf/httpd.conf', 'r') as f:
   old = f.read()
  
 with open('/etc/httpd/conf/httpd.conf', 'w') as f:
-  new2 = old.replace('<Directory “/var/www/html/">', '<Directory “/var/www/html/out”>')
+  new2 = old.replace('<Directory "/var/www/html/">', '<Directory "/var/www/html/out">')
   f.write(new2)
 
 with open('/etc/httpd/conf/httpd.conf', 'a') as f:
@@ -69,14 +69,14 @@ with open('/etc/httpd/conf.d/ssl.conf', 'r') as f:
   old = f.read()
 
 with open('/etc/httpd/conf.d/ssl.conf', 'w') as f:
-  new1 = old.replace(f'SSLCertificateFile /etc/openvpn/easy-rsa/3/pki/issued/{name}.crt', f'SSLCertificateFile /etc/{name}.crt')
+  new1 = old.replace('SSLCertificateFile /etc/pki/tls/certs/localhost.crt', f'SSLCertificateFile /etc/{name}.crt')
   f.write(new1)
 
 with open('/etc/httpd/conf.d/ssl.conf', 'r') as f:
   old = f.read()
   
 with open('/etc/httpd/conf.d/ssl.conf', 'w') as f:
-  new2 = old.replace(f'SSLCertificateKeyFile /etc/openvpn/easy-rsa/3/pki/private/{name}.key', f'SSLCertificateKeyFile /etc/{name}.key')
+  new2 = old.replace('SSLCertificateKeyFile /etc/pki/tls/private/localhost.key', f'SSLCertificateKeyFile /etc/{name}.key')
   f.write(new2)
   
 with open('/etc/selinux/config', 'r') as f:
