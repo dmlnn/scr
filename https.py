@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import os
+import subprocess
 
+command = ['hostname','-I']
+output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
+ip_srv = str(output).split()[1]
 name = input('Name for your site(www.example.local): ')
-ip_srv = input('ip servera: ')
 ip_cl = input('ip clienta: ')
 os_cl = input('y clienta debian ili centos?(1 or 2): ')
 name_vars = 'root@' + name.split('.')[1] + '.' + name.split('.')[2]
