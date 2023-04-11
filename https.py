@@ -4,6 +4,7 @@ import subprocess
 
 input('''
 !!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh !!!
+apt install ssh -y
 nano /etc/ssh/sshd_config
 Port 22
 PermitRootLogin yes
