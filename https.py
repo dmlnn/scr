@@ -103,15 +103,15 @@ os.system('systemctl restart httpd')
 os.system(f'sshpass -p scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc/')
 
 def debian():
-  os.system(f'sshpass -proot root@{ip_cl} apt install ca-certificates lynx -y')
-  os.system(f'sshpass -proot root@{ip_cl} cp /etc/ca.crt /usr/local/share/ca-certificates/')
-  os.system(f'sshpass -proot root@{ip_cl} update-ca-certificates')
-  os.system(f'sshpass -proot root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts')
+  os.system(f'sshpass -proot ssh root@{ip_cl} apt install ca-certificates lynx -y')
+  os.system(f'sshpass -proot ssh root@{ip_cl} cp /etc/ca.crt /usr/local/share/ca-certificates/')
+  os.system(f'sshpass -proot ssh root@{ip_cl} update-ca-certificates')
+  os.system(f'sshpass -proot ssh root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts')
 def centos():
-  os.system(f'sshpass -proot root@{ip_cl} yum install ca-certificates lynx -y')
-  os.system(f'sshpass -proot root@{ip_cl} cp /etc/ca.crt /etc/pki/ca-trust/source/anchors')
-  os.system(f'sshpass -proot root@{ip_cl} update-ca-trust')
-  os.system(f'sshpass -proot root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts')
+  os.system(f'sshpass -proot ssh root@{ip_cl} yum install ca-certificates lynx -y')
+  os.system(f'sshpass -proot ssh root@{ip_cl} cp /etc/ca.crt /etc/pki/ca-trust/source/anchors')
+  os.system(f'sshpass -proot ssh root@{ip_cl} update-ca-trust')
+  os.system(f'sshpass -proot ssh root@{ip_cl} echo {ip_srv} {name} >> /etc/hosts')
   
 if os_cl == "1": debian()
 elif os_cl == "2": centos()
