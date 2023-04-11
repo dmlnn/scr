@@ -56,6 +56,7 @@ with open('vars', 'w+') as f:
   set_var EASYRSA_SSL_CONF          "$EASYRSA/openssl-1.0.cnf"
   set_var EASYRSA_DIGEST            "sha512"''')
 os.system('chmod +x vars')
+input("Sei4as bydyt generirovatsya klu4i, gde passphare pishi root, a ostalnoe mojesh ostavit pystim")
 os.system('./easyrsa init-pki')
 os.system('./easyrsa build-ca') 
 os.system(f'./easyrsa gen-req {name} nopass')
