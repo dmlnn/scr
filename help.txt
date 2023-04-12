@@ -1,0 +1,2 @@
+localedef -i ru_RU -f UTF-8 ru_RU.UTF-8
+Привет я файл на русском
