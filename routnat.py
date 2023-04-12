@@ -26,9 +26,7 @@ up ip route add {ip2 + '/24'} via {ip_rt}
 up ip route add {ip1 + '/24'} via {ip_rt}
 ''')
 
-if l_or_r == "1": left(); ostalnoe()
-elif l_or_r == "2": right(); ostalnoe()
-else: print('Davai zanovo, nepravilno vibran router')
+
 
 def ostalnoe():
 	file2 = open('/etc/hostname','w')
@@ -54,3 +52,7 @@ def ostalnoe():
 	reb = input("reboot?(y)")
 	if reb =="y": os.system("reboot")
 	else: print("Ne zabyd rebootnyt")
+
+if l_or_r == "1": left(); ostalnoe()
+elif l_or_r == "2": right(); ostalnoe()
+else: print('Davai zanovo, nepravilno vibran router')
