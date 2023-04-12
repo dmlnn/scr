@@ -106,21 +106,39 @@ with open('/etc/selinux/config', 'w') as f:
   f.write(new)
   
 os.system('systemctl restart httpd') 
-os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc/')
+os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc')
 
 def debian():
-  os.system(f'sshpass -proot ssh root@{ip_cl} apt install ca-certificates lynx -y')
-  os.system(f'sshpass -proot ssh root@{ip_cl} cp /etc/ca.crt /usr/local/share/ca-certificates/')
-  os.system(f'sshpass -proot ssh root@{ip_cl} update-ca-certificates')
+  hostiki = f'''import os
+
+os.system(apt install ca-certificates lynx -y')
+os.system(cp /etc/ca.crt /usr/local/share/ca-certificates/')
+os.system(update-ca-certificates')
+with open('/etc/hosts', 'a') as f: f.write("{ip_srv} {name}")
+os.system('cat /etc/hosts')'''
+  with open('/scr-main/agent_https', 'w+') as f:
+    f.write(hostiki)
+  os.system(f'sshpass -proot scp /scr-main/agent_https root@{ip_cl}:/etc')
+  print('Agent otrabotal')
+  
 def centos():
-  os.system(f'sshpass -proot ssh root@{ip_cl} yum install ca-certificates lynx -y')
-  os.system(f'sshpass -proot ssh root@{ip_cl} cp /etc/ca.crt /etc/pki/ca-trust/source/anchors')
-  os.system(f'sshpass -proot ssh root@{ip_cl} update-ca-trust')
+  hostiki = f'''import os
+
+os.system('yum install ca-certificates lynx -y')
+os.system('cp /etc/ca.crt /etc/pki/ca-trust/source/anchors')
+os.system('update-ca-trust')
+with open('/etc/hosts', 'a') as f: f.write("{ip_srv} {name}")
+os.system('cat /etc/hosts')'''
+  with open('/scr-main/agent_https', 'w+') as f:
+    f.write(hostiki)
+  os.system(f'sshpass -proot scp /scr-main/agent_https root@{ip_cl}:/etc')
+  print('Agent otrabotal')
+  
   
 if os_cl == "1": debian()
 elif os_cl == "2": centos()
 else: print("Nepravilno vvedena OS clienta, podkluchai ego sam")
 
-print(f'''4tobi klient zarabotal napishi na nem eto:
-echo {ip_srv} {name} >> /etc/hosts
-Dalshe mojno proveryat(lynx {name})''')
+os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
+
+print(f'mojno proveryat (lynx {name})')
