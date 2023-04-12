@@ -41,7 +41,9 @@ with open("/etc/ipsec.secrets", "a") as f:
    
 with open('scr-main/agent_gre', 'w+') as f:
     f.write(f"""
-    with open("/etc/network/interfaces", 'a') as f:
+import os
+
+with open("/etc/network/interfaces", 'a') as f:
     f.write(f'''
 
 
