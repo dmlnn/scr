@@ -1,7 +1,6 @@
 import os
 import ipaddress
 
-network1 = ipaddress.IPv4Address(x)
 local_ip = input("IP etoi mashini: ")
 endpoint_ip = input("IP kone4noi mashini: ")
 gre_ip = input("IP dlya GRE: ")
