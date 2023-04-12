@@ -3,18 +3,20 @@ import os
 import subprocess
 
 input('''
-!!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh !!!
-!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem !!! 
-!!! vipolni pervoe podklychenie k clienty sam(root@IP-CLIENTA) !!!
+!!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh        !!!
+!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem               !!! 
+!!! vipolni pervoe podklychenie po ssh k clienty sam(ssh root@IP-CLIENTA) !!!
+!!! 4tobi zakrit script najmi Ctrl+C, 4tobi prodoljit lybyu klavishy      !!!
 Nastroika ssh na cliente:
 apt install ssh -y
 nano /etc/ssh/sshd_config
 Port 22
 PermitRootLogin yes
 systemctl restart ssh
-!!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh !!!
-!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem !!! 
-!!! vipolni pervoe podklychenie k clienty sam(root@IP-CLIENTA) !!!
+!!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh        !!!
+!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem               !!! 
+!!! vipolni pervoe podklychenie po ssh k clienty sam(ssh root@IP-CLIENTA) !!!
+!!! 4tobi zakrit script najmi Ctrl+C, 4tobi prodoljit lybyu klavishy      !!!
 ''')
 command = ['hostname','-I']
 output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
