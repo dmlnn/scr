@@ -1,6 +1,9 @@
 import os
 import ipaddress
 
+input('''
+
+''')
 local_ip = input("IP etoi mashini: ")
 endpoint_ip = input("IP kone4noi mashini: ")
 gre_ip = input("IP dlya GRE: ")
@@ -45,8 +48,6 @@ import os
 
 with open("/etc/network/interfaces", 'a') as f:
     f.write(f'''
-
-
 auto gre30
 iface gre30 inet tunnel
 address {gre_ip2}
@@ -61,8 +62,6 @@ os.system("apt install libreswan sshpass -y")
 
 with open("/etc/ipsec.conf", "a") as f:
     f.write(f'''
-
-            
 conn "vpn"
 auto=start
 type=tunnel
