@@ -113,9 +113,9 @@ os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/
 def debian():
   hostiki = f'''import os
 
-os.system(apt install ca-certificates lynx -y')
-os.system(cp /etc/ca.crt /usr/local/share/ca-certificates/')
-os.system(update-ca-certificates')
+os.system('apt install ca-certificates lynx -y')
+os.system('cp /etc/ca.crt /usr/local/share/ca-certificates/')
+os.system('update-ca-certificates')
 with open('/etc/hosts', 'a') as f: f.write("{ip_srv} {name}")
 os.system('cat /etc/hosts')'''
   with open('scr-main/agent_https', 'w+') as f:
