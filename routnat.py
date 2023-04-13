@@ -76,16 +76,26 @@ def ostalnoe_cent():
 	nat = input("Настроить nat?(y/n)")
 
 	if nat == "y":
-		os.system("apt install iptables -y")
-		os.system("iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE")
-		os.system("DEBIAN_FRONTEND=noninteractive apt install iptables-persistent")
-		os.system("systemctl restart netfilter-persistent")
-		print("nat nastoren")
+		os.system('systemctl stop firewalld')
+		os.system('systemctl disable firewalld')
+		os.system('yum install iptables iptables-services -y')
+		os.system('iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE')
+		with open('/etc/sysconfig/iptables-config', 'r') as f:
+			old = f.read()
+		with open('/etc/sysconfig/iptables-config', 'w') as f:
+			new = old.replace('IPTABLES_SAVE_ON_STOP="no"', 'IPTABLES_SAVE_ON_STOP="yes"')
+			f.write(new)
+		with open('/etc/sysconfig/iptables-config', 'r') as f:
+			new = old.replace('IPTABLES_SAVE_ON_RESTART="no"', 'IPTABLES_SAVE_ON_RESTART="yes"')
+			f.write(new)
+		os.system('iptables-save > /etc/sysconfig/iptables')
+		os.system('systemctl restart iptables')
+		os.system('systemctl enable iptables')
+		print('Не забудь поставить галочку Auto Connect у адаптера enp0s3!!!')
 	else: print("Ну лан")
 
-	file3 = open('/etc/sysctl.conf','a')
-	file3.write("net.ipv4.ip_forward=1")
-	file3.close()
+	with open('/etc/sysctl.conf','a') as f:
+		f.write("net.ipv4.ip_forward=1")
 	os.system("sysctl -p")
 
 	reb = input("reboot?(y)")
