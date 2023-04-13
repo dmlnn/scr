@@ -3,28 +3,27 @@ import os
 import subprocess
 
 input('''
-Проверка русского
-!!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh        !!!
-!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem               !!! 
-!!! vipolni pervoe podklychenie po ssh k clienty sam(ssh root@IP-CLIENTA) !!!
-!!! 4tobi zakrit script najmi Ctrl+C, 4tobi prodoljit enter               !!!
-Nastroika ssh na cliente:
+!!! Скрипт предназначен только для выполнения на Centos                  !!!
+!!! Перед использованием скрипта ОБЯЗАТЕЛЬНО выполни первое подключение  !!!
+!!! по ссш на клиенте вручную для корректной работы скрипта, иначе       !!!
+!!! подключать клиента придется самому (ssh root@IP-CLIENTA)             !!!
+Настройка ssh на клиенте:
 apt install ssh -y
 nano /etc/ssh/sshd_config
 Port 22
 PermitRootLogin yes
 systemctl restart ssh
-!!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh        !!!
-!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem               !!! 
-!!! vipolni pervoe podklychenie po ssh k clienty sam(ssh root@IP-CLIENTA) !!!
-!!! 4tobi zakrit script najmi Ctrl+C, 4tobi prodoljit enter               !!!
+!!! Скрипт предназначен только для выполнения на Centos                  !!!
+!!! Перед использованием скрипта ОБЯЗАТЕЛЬНО выполни первое подключение  !!!
+!!! по ссш на клиенте вручную для корректной работы скрипта, иначе       !!!
+!!! подключать клиента придется самому (ssh root@IP-CLIENTA)             !!!
 ''')
 command = ['hostname','-I']
 output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
 ip_srv = str(output_com).split()[1]
-name = input('Name for your site(www.example.local): ')
-ip_cl = input('ip clienta: ')
-os_cl = input('y clienta debian ili centos?(1 or 2): ')
+name = input('Адрес твоего сайта(www.example.local): ')
+ip_cl = input('ip клиента: ')
+os_cl = input('У клиента debian или centos?(1 или 2): ')
 name_vars = 'root@' + name.split('.')[1] + '.' + name.split('.')[2]
 
 os.system('systemctl disable firewalld') 
@@ -78,7 +77,7 @@ set_var EASYRSA_EXT_DIR           "$EASYRSA/x509-types"
 set_var EASYRSA_SSL_CONF          "$EASYRSA/openssl-1.0.cnf"
 set_var EASYRSA_DIGEST            "sha512"''')
 os.system('chmod +x vars')
-input("Sei4as bydyt generirovatsya klu4i, gde passphare pishi root, a ostalnoe mojesh ostavit pystim")
+input("Сейчас будут генерироваться ключи, где passphare введи root, где попросят yes/no пиши yes, поля common name можешь оставить пустыми")
 os.system('./easyrsa init-pki')
 os.system('./easyrsa build-ca') 
 os.system(f'./easyrsa gen-req {name} nopass')
@@ -140,8 +139,8 @@ os.system('cat /etc/hosts')'''
   
 if os_cl == "1": debian()
 elif os_cl == "2": centos()
-else: print("Nepravilno vvedena OS clienta, podkluchai ego sam")
+else: print("Неправильно введена ос клиента, придется подключать его вручную")
 
 os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
 
-print(f'mojno proveryat (lynx {name})')
+print(f'Можно проверять на клиенте(lynx {name})')
