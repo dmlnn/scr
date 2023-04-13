@@ -16,4 +16,3 @@ with open('/etc/default/console-setup', 'w') as f:
   f.write(new)
 
 os.system('reboot')
-  
