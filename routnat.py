@@ -86,7 +86,7 @@ def ostalnoe_cent():
 		with open('/etc/sysconfig/iptables-config', 'w') as f:
 			new = old.replace('IPTABLES_SAVE_ON_STOP="no"', 'IPTABLES_SAVE_ON_STOP="yes"')
 			f.write(new)
-		with open('/etc/sysconfig/iptables-config', 'r') as f:
+		with open('/etc/sysconfig/iptables-config', 'w') as f:
 			new = old.replace('IPTABLES_SAVE_ON_RESTART="no"', 'IPTABLES_SAVE_ON_RESTART="yes"')
 			f.write(new)
 		os.system('iptables-save > /etc/sysconfig/iptables')
