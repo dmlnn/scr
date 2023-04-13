@@ -3,6 +3,7 @@ import os
 import subprocess
 
 input('''
+Проверка русского
 !!! Pered ispolzovaniem scripta ybedis 4to na cliente nastroen ssh        !!!
 !!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem               !!! 
 !!! vipolni pervoe podklychenie po ssh k clienty sam(ssh root@IP-CLIENTA) !!!
