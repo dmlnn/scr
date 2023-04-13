@@ -2,7 +2,8 @@ import os
 import ipaddress
 
 oc = input('Настраиваем debian или centos?(1/2): ')
-networks = input('Введи все 4 подсети слева направо через пробел по образцу(x.x.x.0 x.x.x.0...)')
+print('Введи все 4 подсети слева направо через пробел по образцу(x.x.x.0 x.x.x.0...)')
+networks = input() 
 l_or_r = input("Это левый или правый роутер?(1/2): ")
 
 ip1 = networks.split()[0]
