@@ -2,20 +2,20 @@ import os
 import ipaddress
 
 input('''
-!!! Pered ispolzovaniem scripta ybedis 4to na vtoroi mashine nastroen ssh !!!
-!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem               !!! 
-!!! vipolni pervoe podklychenie po ssh k clienty sam(ssh root@IP-CLIENTA) !!!
-!!! 4tobi zakrit script najmi Ctrl+C, 4tobi prodoljit enter               !!!
-Nastroika ssh na cliente:
+!!! Скрипт предназначен только для выполнения на Debian                  !!!
+!!! Перед использованием скрипта ОБЯЗАТЕЛЬНО выполни первое подключение  !!!
+!!! по ссш на клиенте вручную для корректной работы скрипта, иначе       !!!
+!!! подключать клиента придется самому (ssh root@IP-CLIENTA)             !!!
+Настройка ssh на клиенте:
 apt install ssh -y
 nano /etc/ssh/sshd_config
 Port 22
 PermitRootLogin yes
 systemctl restart ssh
-!!! Pered ispolzovaniem scripta ybedis 4to na vtoroi mashine nastroen ssh !!!
-!!! Dlya korrektnoi raboti scripta, pered ego ispolzovaniem               !!! 
-!!! vipolni pervoe podklychenie po ssh k clienty sam(ssh root@IP-CLIENTA) !!!
-!!! 4tobi zakrit script najmi Ctrl+C, 4tobi prodoljit enter               !!!
+!!! Скрипт предназначен только для выполнения на Debian                  !!!
+!!! Перед использованием скрипта ОБЯЗАТЕЛЬНО выполни первое подключение  !!!
+!!! по ссш на клиенте вручную для корректной работы скрипта, иначе       !!!
+!!! подключать клиента придется самому (ssh root@IP-CLIENTA)             !!!
 ''')
 local_ip = input("IP etoi mashini: ")
 endpoint_ip = input("IP kone4noi mashini: ")
