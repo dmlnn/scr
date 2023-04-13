@@ -60,7 +60,7 @@ def left_cent():
 up ip route add {ip3 + '/24'} via {ip_rt}
 up ip route add {ip4 + '/24'} via {ip_rt}
 ''')
-		f.write("\n{" + routs + "\n}" )
+		f.write("\n{" + routs + "}" )
 	os.system('chmod +x /etc/rc.d/rc.local')
 
 def right_cent():
@@ -70,7 +70,7 @@ def right_cent():
 up ip route add {ip2 + '/24'} via {ip_rt}
 up ip route add {ip1 + '/24'} via {ip_rt}
 ''')
-		f.write("\n{" + routs + "\n}" )
+		f.write("\n{" + routs + "}" )
 	os.system('chmod +x /etc/rc.d/rc.local')
 
 def ostalnoe_cent():
