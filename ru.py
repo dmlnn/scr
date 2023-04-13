@@ -1,5 +1,6 @@
 import os
 
+input("!!! Etot script prednazna4en tolko dlya debiana, centos srazy podderjivaet russkiy yazik !!!")
 with open('/etc/locale.gen', 'r') as f:
   old = f.read()
 with open('/etc/locale.gen', 'w') as f:
