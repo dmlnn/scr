@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import subprocess
 
 input('''
 !!! Скрипт предназначен только для выполнения на Centos                  !!!
@@ -19,6 +20,10 @@ systemctl restart ssh
 !!! подключать клиентов придется самому (ssh root@IP-CLIENTA)            !!!
 !!! Остановить скрипт - Ctrl+C, продолжить - Enter                       !!!
 ''')
+# Узнаем айпишник машины на которой находимся
+command = ['hostname','-I']
+output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
+local_ip = str(output_com).split()[1]
 
 print('Введи айпи адрес сервера для впн если он на этой машине, то адрес этой машины: ')
 ip_srv = input()
