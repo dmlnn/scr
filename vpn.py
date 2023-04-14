@@ -166,7 +166,7 @@ def scr_srv():                                      # Создание и отп
 def scr_cl():                                       # Создание и отправка агента на клиента впн
   with open('scr-main/agent_vpn_cl', 'w+') as f:
     f.write(install_vpn_cent_cl)
-  os.system(f'sshpass -proot scp scr-main/agent_vpn_srv root@{ip_cl}:/etc')
+  os.system(f'sshpass -proot scp scr-main/agent_vpn_cl root@{ip_cl}:/etc')
   os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_vpn_cl')
 
 os.system('yum install sshpass -y')
