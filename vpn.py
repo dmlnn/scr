@@ -83,8 +83,7 @@ install_vpn_deb_srv =(f'''import os
 
 os.system('apt install openvpn -y')
 with open('/etc/openvpn/server.conf', 'w') as f:
-    f.write('{params_vpn_serv}')
-os.system('systemctl restart openvpn@server')
+    f.write("""{params_vpn_serv}""")
 ''')
 
                                            # Настройка впна на дебиане если он клиент
@@ -92,8 +91,7 @@ install_vpn_deb_cl =(f'''import os
 
 os.system('apt install openvpn -y')
 with open('/etc/openvpn/client.conf', 'w+') as f:
-    f.write('{params_vpn_cl}')
-os.system('systemctl restart openvpn@client')
+    f.write("""{params_vpn_cl}""")
 ''')
 
                                            # Настройка впна на центосе клиенте
@@ -103,8 +101,7 @@ os.system('yum install epel-release -y')
 os.system('yum update -y')
 os.system('yum install openvpn -y')
 with open('/etc/openvpn/client.conf', 'w+') as f:
-    f.write('{params_vpn_cl}')
-os.system('systemctl restart openvpn@client')
+    f.write("""{params_vpn_cl}""")
 ''')
 
 def cert():                                 # Центр сертификации
