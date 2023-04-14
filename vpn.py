@@ -156,7 +156,7 @@ set_var EASYRSA_DIGEST            "sha512"''')
   os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/issued/client.crt root@{ip_cl}:/etc/openvpn/client')
   os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/private/client.key root@{ip_cl}:/etc/openvpn/client')
   os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/ta.key root@{ip_cl}:/etc/openvpn/client')
-
+  
 def scr_srv():                                      # Создание и отправка агента на сервер впн
   with open('scr-main/agent_vpn_srv', 'w+') as f:
     f.write(install_vpn_deb_srv)
@@ -173,5 +173,8 @@ os.system('yum install sshpass -y')
 scr_srv()
 scr_cl()
 cert()
+
+os.system(f'sshpass -proot ssh root@{ip_srv} systemctl restart openvpn@server')
+os.system(f'sshpass -proot ssh root@{ip_cl} systemctl restart openvpn@client')
 
 print('VPN настроен')
