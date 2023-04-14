@@ -73,7 +73,7 @@ user nobody
 group nobody
 persist-key
 persist-tun
-ca /еtc/openvpn/client/ca.crt    	
+ca /etc/openvpn/client/ca.crt    	
 cert /etc/openvpn/client/client.crt
 key /etc/openvpn/client/client.key 
 tls-auth /etc/openvpn/client/ta.key 1
