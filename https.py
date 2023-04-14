@@ -77,7 +77,7 @@ set_var EASYRSA_EXT_DIR           "$EASYRSA/x509-types"
 set_var EASYRSA_SSL_CONF          "$EASYRSA/openssl-1.0.cnf"
 set_var EASYRSA_DIGEST            "sha512"''')
 os.system('chmod +x vars')
-input("Сейчас будут генерироваться ключи, где passphare введи root, где попросят yes пиши yes, поля common name можешь оставить пустыми")
+input("Сейчас будут генерироваться ключи, где pass phrase введи root, где попросят yes пиши yes, поля common name можешь оставить пустыми")
 os.system('./easyrsa init-pki')
 os.system('./easyrsa build-ca') 
 os.system(f'./easyrsa gen-req {name} nopass')
