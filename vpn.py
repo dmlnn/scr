@@ -167,6 +167,7 @@ def scr_cl():                                       # Создание и отп
   os.system(f'sshpass -proot scp scr-main/agent_vpn_srv root@{ip_cl}:/etc')
   os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_vpn_cl')
 
+os.system('yum install sshpass -y')
 scr_srv()
 scr_cl()
 cert()
