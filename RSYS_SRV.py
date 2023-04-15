@@ -50,6 +50,7 @@ with open('scr-main/agent_syslog', 'w+') as f:
 os.system('apt install sshpass -y')
 os.system('yum install sshpass -y')
 
-os.system(f'sshpass -proot scp scr-main/agent_syslog root@{listok[0]}')
-os.system(f'sshpass -proot scp scr-main/agent_syslog root@{listok[1]}')
-os.system(f'sshpass -proot scp scr-main/agent_syslog root@{listok[2]}')
+for i in ip_cl:
+  os.system(f'sshpass -proot scp scr-main/agent_syslog root@{i}:/etc')
+  os.system(f'sshpass -proot ssh root@{i} yum install python3 -y')
+  os.system(f'sshpass -proot ssh root@{i} python3 /etc/agent_syslog')
