@@ -25,11 +25,8 @@ ip_srv = input('Введи ip сервера для vpn: ')
 ip_cl = input('Введи ip клиента для vpn: ')
 print('Введи ip для самого vpn обязательно с 0 на конце, например 5.5.5.0: ')
 ip_vpn = input()    
-os_vpn_cl = ''
-while ((os_vpn_cl != 'centos') & (os_vpn_cl != 'debian')):
-    os_vpn_cl = input('Ввебди ОС клиента (centos/debian): ').lower()
-    
-                                           # Конфиги впна для сервера и клиента 
+
+                                            # Конфиги впна для сервера и клиента 
 params_vpn_serv = (f'''port 1122
 proto udp
 dev tun
@@ -176,9 +173,14 @@ def scr_cl_deb():                                      # Создание и о�
   os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_vpn_cl')
   
 os.system('yum install sshpass -y')
+
 scr_srv()
-if os_vpn_cl == "centos": scr_cl_cent()
+
+command = ['sshpass', '-proot', 'ssh', f'root@{ip_cl}', 'cat', '/proc/version']
+output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+if 'Red Hat' in output_com: scr_cl_cent()
 else: scr_cl_deb()
+
 cert()
 
 os.system(f'sshpass -proot ssh root@{ip_srv} systemctl restart openvpn@server')
