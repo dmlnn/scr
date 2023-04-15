@@ -36,7 +36,7 @@ def ostalnoe_deb():
 	if nat == "y":
 		os.system("apt install iptables -y")
 		os.system("iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE")
-		os.system("DEBIAN_FRONTEND=noninteractive apt install iptables-persistent")
+		os.system("DEBIAN_FRONTEND=noninteractive apt install iptables-persistent -y")
 		os.system("systemctl restart netfilter-persistent")
 		print("nat nastoren")
 	else: print("Ну лан")
