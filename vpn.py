@@ -20,18 +20,15 @@ systemctl restart ssh
 !!! подключать клиентов придется самому (ssh root@IP-CLIENTA)            !!!
 !!! Остановить скрипт - Ctrl+C, продолжить - Enter                       !!!
 ''')
-# Узнаем айпишник машины на которой находимся
-command = ['hostname','-I']
-output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
-local_ip = str(output_com).split()[1]
 
 print('Введи айпи адрес сервера для впн если он на этой машине, то адрес этой машины: ')
 ip_srv = input()
 ip_cl = input('Введи ip vpn-клиента: ')
 print('Введи ip для самого vpn обязательно с 0 на конце, например 5.5.5.0: ')
 ip_vpn = input()
-#print('Введи ос клиента маленькими буквами(debian/centos)')
-#os_vpn_cl = input('Client: ')  
+print('Введи ос клиента (debian/centos)')
+os_vpn_srv = input('Server: ').lower()
+os_vpn_cl = input('Client: ').lower()  
                                            # Конфиги впна для сервера и клиента 
 params_vpn_serv = (f'''port 1122
 proto udp
@@ -161,19 +158,27 @@ def scr_srv():                                      # Создание и отп
   with open('scr-main/agent_vpn_srv', 'w+') as f:
     f.write(install_vpn_deb_srv)
   os.system(f'sshpass -proot scp scr-main/agent_vpn_srv root@{ip_srv}:/etc')
-  os.system(f'sshpass -proot ssh root@{ip_srv} yum install python3 -y')
+  os.system(f'sshpass -proot ssh root@{ip_srv} apt install python3 -y')
   os.system(f'sshpass -proot ssh root@{ip_srv} python3 /etc/agent_vpn_srv')
 
-def scr_cl():                                       # Создание и отправка агента на клиента впн
+def scr_cl_cent():                                       # Создание и отправка агента на клиента центоса впн
   with open('scr-main/agent_vpn_cl', 'w+') as f:
     f.write(install_vpn_cent_cl)
   os.system(f'sshpass -proot scp scr-main/agent_vpn_cl root@{ip_cl}:/etc')
   os.system(f'sshpass -proot ssh root@{ip_cl} yum install python3 -y')
   os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_vpn_cl')
 
+def scr_cl_deb():                                      # Создание и отправка агента на клиента дебиана впн
+  with open('scr-main/agent_vpn_srv', 'w+') as f:
+    f.write(install_vpn_deb_cl)
+  os.system(f'sshpass -proot scp scr-main/agent_vpn_srv root@{ip_srv}:/etc')
+  os.system(f'sshpass -proot ssh root@{ip_srv} apt install python3 -y')
+  os.system(f'sshpass -proot ssh root@{ip_srv} python3 /etc/agent_vpn_srv')
+  
 os.system('yum install sshpass -y')
 scr_srv()
-scr_cl()
+if os_vpn_cl == "centos": scr_cl_cent()
+else: scr_cl_deb()
 cert()
 
 os.system(f'sshpass -proot ssh root@{ip_srv} systemctl restart openvpn@server')
