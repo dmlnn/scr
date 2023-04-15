@@ -18,13 +18,11 @@ systemctl restart ssh
 !!! по ссш на клиенте вручную для корректной работы скрипта, иначе       !!!
 !!! подключать клиента придется самому (ssh root@IP-CLIENTA)             !!!
 ''')
-command = ['hostname','-I']
-output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
 
 name = input('Адрес твоего сайта(www.example.local): ')
 ip_srv = input("ip веб-сервера: ")
 ip_cl = input('ip клиента: ')
-os_cl = input('У клиента debian или centos?(1 или 2): ')
+
 name_vars = 'root@' + name.split('.')[1] + '.' + name.split('.')[2]
 
 os.system('systemctl disable firewalld') 
@@ -139,9 +137,10 @@ os.system('cat /etc/hosts')'''
   print('Agent otrabotal')
   
 
-if os_cl == "1": debian()
-elif os_cl == "2": centos()
-else: print("Неправильно введена ос клиента, придется подключать его вручную")
+command = ['sshpass', '-proot', 'ssh', f'root@{ip_cl}', 'cat', '/proc/version']
+output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+if 'Red Hat' in output_com: centos()
+else: debian()
 
 os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
 
