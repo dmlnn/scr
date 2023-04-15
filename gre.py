@@ -22,6 +22,8 @@ endpoint_ip = input("IP kone4noi mashini: ")
 gre_ip = input("IP dlya GRE: ")
 gre_ip2 = str(ipaddress.IPv4Address(gre_ip) + 1)
 
+os.system('apt install sshpass -y')
+
 with open("/etc/network/interfaces", 'a') as f:
     f.write(f'''
 \n\nauto gre30
