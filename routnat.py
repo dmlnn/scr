@@ -115,5 +115,3 @@ command = ['cat', '/proc/version']
 output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
 if 'Red Hat' in output_com: os_2()
 else: os_1()
-		
-else: print("Nepravilno ykazal OS davai zanovo")
