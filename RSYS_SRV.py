@@ -8,6 +8,7 @@ ip_cl = input().split()
 ip_srv = input('Введи айпи сервера для логов: ')
 
 os.system('apt install sshpass -y')
+os.system('yum install sshpass -y')
 
 listok = []
 for i in ip_cl:
@@ -19,8 +20,8 @@ with open('/etc/rsyslog.conf', 'r') as f:
   old = f.read()
 
 with open('/etc/rsyslog.conf', 'w') as f:
-  new1 = old.rapace('#module(load=”imudp”)', 'module(load=”imudp”)')
-  new2 = new1.rapace('#input(type=”imudp” port=”514”)', 'input(type=”imudp” port=”514”)')
+  new1 = old.replace('#module(load=”imudp”)', 'module(load=”imudp”)')
+  new2 = new1.replace('#input(type=”imudp” port=”514”)', 'input(type=”imudp” port=”514”)')
 
 for i in range(len(listok)):
   with open('etc/rsyslog.conf', 'a') as f:
@@ -46,9 +47,6 @@ os.system('systemctl restart rsyslog')""")
 
 with open('scr-main/agent_syslog', 'w+') as f:
   f.write(agentik)
-
-os.system('apt install sshpass -y')
-os.system('yum install sshpass -y')
 
 for i in ip_cl:
   os.system(f'sshpass -proot scp scr-main/agent_syslog root@{i}:/etc')
