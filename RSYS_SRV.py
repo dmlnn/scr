@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 #################### для сервера
 import os
+import subprocess
 
+print("Введи айпи адреса всех трех клиентов через пробел: ")
+ip_cl = input().split()
+ip_srv = input('Введи айпи сервера для логов: ')
 
+os.system('apt install sshpass -y')
 
 listok = []
-
-listok += [input('Введи HOSTNAME первого (из трех) клиента: ')]
-listok += [input('Введи HOSTNAME второго (из трех) клиента: ')]
-listok += [input('Введи HOSTNAME первого (из трех) клиента: ')]
-ip_srv = input('Введи айпи сервера для логов: ')
+for i in ip_cl:
+  command = ['sshpass', '-proot', 'ssh', f'root@{i}', 'cat', '/etc/hostname']
+  out_h = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+  listok += [out_h]
 
 with open('/etc/rsyslog.conf', 'r') as f:
   old = f.read()
