@@ -13,7 +13,8 @@ os.system('yum install sshpass -y')
 listok = []
 for i in ip_cl:
   command = ['sshpass', '-proot', 'ssh', f'root@{i}', 'cat', '/etc/hostname']
-  out_h = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+  out_h = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])[2:]
+  out_h =out_h[:-3]
   listok += [out_h]
 
 with open('/etc/rsyslog.conf', 'r') as f:
@@ -22,6 +23,7 @@ with open('/etc/rsyslog.conf', 'r') as f:
 with open('/etc/rsyslog.conf', 'w') as f:
   new1 = old.replace('#module(load=”imudp”)', 'module(load=”imudp”)')
   new2 = new1.replace('#input(type=”imudp” port=”514”)', 'input(type=”imudp” port=”514”)')
+  f.write(new2)
 
 for i in range(len(listok)):
   with open('/etc/rsyslog.conf', 'a') as f:
