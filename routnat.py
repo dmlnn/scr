@@ -1,7 +1,6 @@
 import os
 import ipaddress
 
-oc = input('Настраиваем debian или centos?(1/2): ')
 print('Введи все 4 подсети слева направо через пробел по образцу(x.x.x.0 x.x.x.0...)')
 networks = input() 
 l_or_r = input("Это левый или правый роутер?(1/2): ")
@@ -102,13 +101,19 @@ def ostalnoe_cent():
 	reb = input("reboot?(y)")
 	if reb =="y": os.system("reboot")
 	else: print("Не забудь перезагрузить")
-
-if oc == "1":
+		
+def os_1():
 	if l_or_r == "1": left_deb(); ostalnoe_deb()
 	elif l_or_r == "2": right_deb(); ostalnoe_deb()
 	else: print('Davai zanovo, nepravilno vibran router')
-elif oc == "2":
+def os_2():
 	if l_or_r == "1": left_cent(); ostalnoe_cent()
 	elif l_or_r == "2": right_cent(); ostalnoe_cent()
 	else: print('Davai zanovo, nepravilno vibran router')
+
+command = ['cat', '/proc/version']
+output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+if 'Red Hat' in output_com: os_2()
+else: os_1()
+		
 else: print("Nepravilno ykazal OS davai zanovo")
