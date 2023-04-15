@@ -24,7 +24,7 @@ with open('/etc/rsyslog.conf', 'w') as f:
   new2 = new1.replace('#input(type=”imudp” port=”514”)', 'input(type=”imudp” port=”514”)')
 
 for i in range(len(listok)):
-  with open('etc/rsyslog.conf', 'a') as f:
+  with open('/etc/rsyslog.conf', 'a') as f:
     f.write(f'''
 if ( $hostname == "{listok[i]}" and $syslogseverity == 2 ) then /opt/logs/{listok[i]}/crit.log
 if ( $hostname == "{listok[i]}" and $syslogfacility-text == “auth” ) then /opt/logs/{listok[i]}/auth.log
