@@ -125,7 +125,7 @@ set_var EASYRSA_REQ_CITY          "MSK"
 set_var EASYRSA_REQ_ORG           "KMPO"
 set_var EASYRSA_REQ_EMAIL         "root@kmpo.local"
 set_var EASYRSA_REQ_OU            "IT"
-set_var EASYRSA_KEY_SIZE          4096
+set_var EASYRSA_KEY_SIZE          2048
 set_var EASYRSA_ALGO              rsa
 set_var EASYRSA_CA_EXPIRE         7500
 set_var EASYRSA_CERT_EXPIRE       3650
