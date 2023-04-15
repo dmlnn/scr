@@ -21,14 +21,14 @@ systemctl restart ssh
 !!! Остановить скрипт - Ctrl+C, продолжить - Enter                       !!!
 ''')
 
-print('Введи айпи адрес сервера для впн если он на этой машине, то адрес этой машины: ')
-ip_srv = input()
-ip_cl = input('Введи ip vpn-клиента: ')
+ip_srv = input('Введи ip сервера для vpn: ')
+ip_cl = input('Введи ip клиента для vpn: ')
 print('Введи ip для самого vpn обязательно с 0 на конце, например 5.5.5.0: ')
-ip_vpn = input()
-print('Введи ос клиента (debian/centos)')
-os_vpn_srv = input('Server: ').lower()
-os_vpn_cl = input('Client: ').lower()  
+ip_vpn = input()    
+os_vpn_cl = ''
+while ((os_vpn_cl != 'centos') & (os_vpn_cl != 'debian')):
+    os_vpn_cl = input('Ввебди ОС клиента (centos/debian): ').lower()
+    
                                            # Конфиги впна для сервера и клиента 
 params_vpn_serv = (f'''port 1122
 proto udp
