@@ -32,7 +32,7 @@ if ( $hostname == "{listok[i]}"  and $syslogseverity-text == “err” ) then /o
 
 os.system('systemctl restart rsyslog')
 
-agentik = (f'''# -*- coding: utf-8 -*-
+agentik = (f"""# -*- coding: utf-8 -*-
 import os
 
 with open('/etc/rsyslog.conf', 'a') as f:
@@ -42,7 +42,7 @@ with open('/etc/rsyslog.conf', 'a') as f:
 *.=info @{ ip_srv }
 ''')
 
-os.system('systemctl restart rsyslog')''')
+os.system('systemctl restart rsyslog')""")
 
 with open('scr-main/agent_syslog', 'w+') as f:
   f.write(agentik)
