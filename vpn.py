@@ -141,7 +141,7 @@ set_var EASYRSA_DIGEST            "sha512"''')
   os.system('./easyrsa gen-req serv nopass')
   os.system('./easyrsa sign-req server serv')
   os.system('./easyrsa gen-req client nopass')
-  os.system('./easyrsa sign-req server client')
+  os.system('./easyrsa sign-req client client')
   os.system('./easyrsa gen-dh')
   os.system('openvpn --genkey --secret ta.key')
   os.chdir('/root')
@@ -161,12 +161,14 @@ def scr_srv():                                      # Создание и отп
   with open('scr-main/agent_vpn_srv', 'w+') as f:
     f.write(install_vpn_deb_srv)
   os.system(f'sshpass -proot scp scr-main/agent_vpn_srv root@{ip_srv}:/etc')
+  os.system(f'sshpass -proot ssh root@{ip_srv} yum install python3 -y')
   os.system(f'sshpass -proot ssh root@{ip_srv} python3 /etc/agent_vpn_srv')
 
 def scr_cl():                                       # Создание и отправка агента на клиента впн
   with open('scr-main/agent_vpn_cl', 'w+') as f:
     f.write(install_vpn_cent_cl)
   os.system(f'sshpass -proot scp scr-main/agent_vpn_cl root@{ip_cl}:/etc')
+  os.system(f'sshpass -proot ssh root@{ip_cl} yum install python3 -y')
   os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_vpn_cl')
 
 os.system('yum install sshpass -y')
