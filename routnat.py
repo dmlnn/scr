@@ -1,6 +1,6 @@
 import os
 import ipaddress
-
+import subprocess
 print('Введи все 4 подсети слева направо через пробел по образцу(x.x.x.0 x.x.x.0...)')
 networks = input() 
 l_or_r = input("Это левый или правый роутер?(1/2): ")
