@@ -124,6 +124,7 @@ os.system('cat /etc/hosts')'''
   print('Agent otrabotal')
   
 def centos():
+  os.system(f'sshpass -proot ssh root@{ip_cl} yum install python3 -y')
   hostiki = f'''import os
 
 os.system('yum install ca-certificates lynx -y')
@@ -136,7 +137,7 @@ os.system('cat /etc/hosts')'''
   os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
   print('Agent otrabotal')
   
-  
+
 if os_cl == "1": debian()
 elif os_cl == "2": centos()
 else: print("Неправильно введена ос клиента, придется подключать его вручную")
