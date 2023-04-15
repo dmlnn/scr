@@ -20,8 +20,9 @@ systemctl restart ssh
 ''')
 command = ['hostname','-I']
 output_com = subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0]
-ip_srv = str(output_com).split()[1]
+
 name = input('Адрес твоего сайта(www.example.local): ')
+ip_srv = input("ip веб-сервера: ")
 ip_cl = input('ip клиента: ')
 os_cl = input('У клиента debian или centos?(1 или 2): ')
 name_vars = 'root@' + name.split('.')[1] + '.' + name.split('.')[2]
