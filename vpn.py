@@ -67,7 +67,7 @@ remote {ip_srv} 1122
 resolv-retry infinite
 nobind	
 user nobody
-group nobody
+group nogroup
 persist-key
 persist-tun
 ca /etc/openvpn/client/ca.crt    	
