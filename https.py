@@ -146,4 +146,4 @@ else: debian()
 
 os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
 
-print(f'Можно проверять на клиенте(lynx {name})')
+print(f'\nМожно проверять на клиенте(lynx {name})')
