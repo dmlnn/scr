@@ -47,12 +47,6 @@ with open('/etc/httpd/conf/httpd.conf', 'w') as f:
   new2 = old.replace('<Directory "/var/www/html/">', '<Directory "/var/www/html/out">')
   f.write(new2)
 
-with open('/etc/httpd/conf/httpd.conf', 'a') as f:
-  f.write(''' 
-RewriteEngine On 
-RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URL} 
-''')
-
 os.system('yum install epel-release -y')
 os.system('yum update -y')
 os.system('yum install easy-rsa openvpn -y')
