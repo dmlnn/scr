@@ -56,8 +56,8 @@ def left_cent():
 	ip_rt = str(ipaddress.IPv4Address(ip2) + 1)
 	with open('/etc/rc.local', 'a') as f:
 		routs = (f'''
-up ip route add {ip3 + '/24'} via {ip_rt}
-up ip route add {ip4 + '/24'} via {ip_rt}
+ip route add {ip3 + '/24'} via {ip_rt}
+ip route add {ip4 + '/24'} via {ip_rt}
 ''')
 		f.write("\n{" + routs + "}" )
 	os.system('chmod +x /etc/rc.d/rc.local')
@@ -66,8 +66,8 @@ def right_cent():
 	ip_rt = str(ipaddress.IPv4Address(ip3) + 1)
 	with open('/etc/rc.local', 'a') as f:
 		routs = (f'''
-up ip route add {ip2 + '/24'} via {ip_rt}
-up ip route add {ip1 + '/24'} via {ip_rt}
+ip route add {ip2 + '/24'} via {ip_rt}
+ip route add {ip1 + '/24'} via {ip_rt}
 ''')
 		f.write("\n{" + routs + "}" )
 	os.system('chmod +x /etc/rc.d/rc.local')
