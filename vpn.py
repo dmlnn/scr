@@ -171,9 +171,9 @@ def scr_cl_cent():                                       # Создание и �
 def scr_cl_deb():                                      # Создание и отправка агента на клиента дебиана впн
   with open('scr-main/agent_vpn_cl', 'w+') as f:
     f.write(install_vpn_deb_cl)
-  os.system(f'sshpass -proot scp scr-main/agent_vpn_srv root@{ip_srv}:/etc')
-  os.system(f'sshpass -proot ssh root@{ip_srv} apt install python3 -y')
-  os.system(f'sshpass -proot ssh root@{ip_srv} python3 /etc/agent_vpn_srv')
+  os.system(f'sshpass -proot scp scr-main/agent_vpn_cl root@{ip_cl}:/etc')
+  os.system(f'sshpass -proot ssh root@{ip_cl} apt install python3 -y')
+  os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_vpn_cl')
   
 os.system('yum install sshpass -y')
 scr_srv()
