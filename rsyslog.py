@@ -5,7 +5,7 @@ import subprocess
 
 print("Введи айпи адреса всех трех клиентов через пробел: ")
 ip_cl = input().split()
-ip_srv = input('Введи айпи сервера для логов: ')
+ip_srv = input('Введи айпи этой машины: ')
 
 os.system('apt install sshpass -y')
 os.system('yum install sshpass -y')
