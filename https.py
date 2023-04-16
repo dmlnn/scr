@@ -108,9 +108,9 @@ with open('/etc/selinux/config', 'w') as f:
   f.write(new)
   
 os.system('systemctl restart httpd') 
-os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc')
 
 def debian(ip_cl):
+  os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc')
   hostiki = f'''import os
 
 os.system('apt install ca-certificates lynx -y')
@@ -124,6 +124,7 @@ os.system('cat /etc/hosts')'''
   print('Agent otrabotal')
   
 def centos(ip_cl):
+  os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc')
   os.system(f'sshpass -proot ssh root@{ip_cl} yum install python3 -y')
   hostiki = f'''import os
 
