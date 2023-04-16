@@ -120,7 +120,7 @@ with open('/etc/hosts', 'a') as f: f.write("{ip_srv} {name}")
 os.system('cat /etc/hosts')'''
   with open(f'scr-main/agent{n}_https', 'w+') as f:
     f.write(hostiki)
-  os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
+  os.system(f'sshpass -proot scp scr-main/agent{n}_https root@{ip_cl}:/etc')
   os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent{n}_https')
   print('Agent otrabotal')
   
@@ -136,7 +136,7 @@ with open('/etc/hosts', 'a') as f: f.write("{ip_srv} {name}")
 os.system('cat /etc/hosts')'''
   with open(f'scr-main/agent{n}_https', 'w+') as f:
     f.write(hostiki)
-  os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
+  os.system(f'sshpass -proot scp scr-main/agent{n}_https root@{ip_cl}:/etc')
   os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent{n}_https')
   print('Agent otrabotal')
 
