@@ -69,6 +69,7 @@ os.system('systemctl restart rsyslog')
 
 agentik = (f"""# -*- coding: utf-8 -*-
 import os
+import subprocess
 
 def selinux_off():
   with open('/etc/selinux/config', 'r') as f:
