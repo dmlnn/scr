@@ -35,13 +35,18 @@ for i in ip_cl:
   out_h =out_h[:-3]
   listok += [out_h]
 
-with open('/etc/selinux/config', 'r') as f:
-  old = f.read()
+def selinux_off():
+  with open('/etc/selinux/config', 'r') as f:
+    old = f.read()
   
-with open('/etc/selinux/config', 'w') as f:
-  new = old.replace('SELINUX=enforcing', 'SELINUX=disabled')
-  f.write(new)
+  with open('/etc/selinux/config', 'w') as f:
+    new = old.replace('SELINUX=enforcing', 'SELINUX=disabled')
+    f.write(new)
 
+command = ['cat', '/proc/version']
+output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+if 'Red Hat' in output_com: selinux_off()  
+    
 with open('/etc/rsyslog.conf', 'r') as f:
   old = f.read()
 
@@ -64,6 +69,18 @@ os.system('systemctl restart rsyslog')
 
 agentik = (f"""# -*- coding: utf-8 -*-
 import os
+
+def selinux_off():
+  with open('/etc/selinux/config', 'r') as f:
+    old = f.read()
+  
+  with open('/etc/selinux/config', 'w') as f:
+    new = old.replace('SELINUX=enforcing', 'SELINUX=disabled')
+    f.write(new)
+
+command = ['cat', '/proc/version']
+output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+if 'Red Hat' in output_com: selinux_off()
 
 with open('/etc/rsyslog.conf', 'a') as f:
   f.write(f'''
