@@ -9,6 +9,8 @@ ip_srv = input('Введи айпи сервера для логов: ')
 
 os.system('apt install sshpass -y')
 os.system('yum install sshpass -y')
+os.system('systemctl stop firewalld')
+os.system('systemctl disable firewalld')
 
 listok = []
 for i in ip_cl:
@@ -17,8 +19,13 @@ for i in ip_cl:
   out_h =out_h[:-3]
   listok += [out_h]
 
-
+with open('/etc/selinux/config', 'r') as f:
+  old = f.read()
   
+with open('/etc/selinux/config', 'w') as f:
+  new = old.replace('SELINUX=enforcing', 'SELINUX=disabled')
+  f.write(new)
+
 with open('/etc/rsyslog.conf', 'r') as f:
   old = f.read()
 
