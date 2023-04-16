@@ -121,6 +121,7 @@ os.system('cat /etc/hosts')'''
   with open('scr-main/agent_https', 'w+') as f:
     f.write(hostiki)
   os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
+  os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
   print('Agent otrabotal')
   
 def centos(ip_cl):
@@ -128,7 +129,7 @@ def centos(ip_cl):
   os.system(f'sshpass -proot ssh root@{ip_cl} yum install python3 -y')
   hostiki = f'''import os
 
-os.system('yum install ca-certificates lynx -y')
+os.system('yum install ca-certificates lynx python3 -y')
 os.system('cp /etc/ca.crt /etc/pki/ca-trust/source/anchors')
 os.system('update-ca-trust')
 with open('/etc/hosts', 'a') as f: f.write("{ip_srv} {name}")
@@ -136,6 +137,7 @@ os.system('cat /etc/hosts')'''
   with open('scr-main/agent_https', 'w+') as f:
     f.write(hostiki)
   os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
+  os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
   print('Agent otrabotal')
 
 for i in list_cl:
@@ -143,7 +145,5 @@ for i in list_cl:
   output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
   if 'Red Hat' in output_com: centos(i)
   else: debian(i)
-
-os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
 
 print(f'\nМожно проверять на клиенте(lynx {name})')
