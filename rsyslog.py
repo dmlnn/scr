@@ -99,3 +99,13 @@ for i in ip_cl:
   os.system(f'sshpass -proot scp scr-main/agent_syslog root@{i}:/etc')
   os.system(f'sshpass -proot ssh root@{i} yum install python3 -y')
   os.system(f'sshpass -proot ssh root@{i} python3 /etc/agent_syslog')
+  
+print('''Сислог настроен
+Проверка:
+На сервере
+deb: tail -f /var/log/syslog
+cent: tail -f /var/log/messages
+
+На клиенте
+logger -p local7.crit любой текст
+logger -p local7.err любой текст''')
