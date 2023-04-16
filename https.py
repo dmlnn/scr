@@ -23,8 +23,13 @@ systemctl restart ssh
 
 name = input('Адрес твоего сайта(www.example.local): ')
 ip_srv = input("ip веб-сервера: ")
-ip_cl = input('ip клиента: ')
+kolvo_cl = int(input('Сколько клиентов?: '))
 
+list_cl = []
+
+for i in range(kolvo_cl):
+  list_cl += [input(f"IP клиента {i+1}: ")]
+  
 name_vars = 'root@' + name.split('.')[1] + '.' + name.split('.')[2]
 
 os.system('systemctl disable firewalld') 
@@ -105,7 +110,7 @@ with open('/etc/selinux/config', 'w') as f:
 os.system('systemctl restart httpd') 
 os.system(f'sshpass -proot scp /etc/openvpn/easy-rsa/3/pki/ca.crt root@{ip_cl}:/etc')
 
-def debian():
+def debian(ip_cl):
   hostiki = f'''import os
 
 os.system('apt install ca-certificates lynx -y')
@@ -118,7 +123,7 @@ os.system('cat /etc/hosts')'''
   os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
   print('Agent otrabotal')
   
-def centos():
+def centos(ip_cl):
   os.system(f'sshpass -proot ssh root@{ip_cl} yum install python3 -y')
   hostiki = f'''import os
 
@@ -131,12 +136,12 @@ os.system('cat /etc/hosts')'''
     f.write(hostiki)
   os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
   print('Agent otrabotal')
-  
 
-command = ['sshpass', '-proot', 'ssh', f'root@{ip_cl}', 'cat', '/proc/version']
-output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
-if 'Red Hat' in output_com: centos()
-else: debian()
+for i in list_cl:
+  command = ['sshpass', '-proot', 'ssh', f'root@{i}', 'cat', '/proc/version']
+  output_com = str(subprocess.Popen(command, stdout=subprocess.PIPE).communicate()[0])
+  if 'Red Hat' in output_com: centos(i)
+  else: debian(i)
 
 os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
 
