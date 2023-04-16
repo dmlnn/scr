@@ -22,7 +22,7 @@ systemctl restart ssh
 ''')
 
 name = input('Адрес твоего сайта(www.example.local): ')
-ip_srv = input("ip веб-сервера: ")
+ip_srv = input("ip этой машины: ")
 kolvo_cl = int(input('Сколько клиентов?: '))
 
 list_cl = []
