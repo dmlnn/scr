@@ -17,9 +17,9 @@ systemctl restart ssh
 !!! по ссш на клиенте вручную для корректной работы скрипта, иначе       !!!
 !!! подключать клиента придется самому (ssh root@IP-CLIENTA)             !!!
 ''')
-local_ip = input("IP etoi mashini: ")
-endpoint_ip = input("IP kone4noi mashini: ")
-gre_ip = input("IP dlya GRE: ")
+local_ip = input("IP этой машины: ")
+endpoint_ip = input("IP конечной машины: ")
+gre_ip = input("IP для GRE: ")
 gre_ip2 = str(ipaddress.IPv4Address(gre_ip) + 1)
 
 os.system('apt install sshpass -y')
@@ -94,3 +94,5 @@ with open("/etc/ipsec.secrets", "a") as f:
     
 os.system(f'sshpass -proot scp scr-main/agent_gre root@{endpoint_ip}:/etc')
 os.system(f'sshpass -proot ssh root@{endpoint_ip} python3 /etc/agent_gre')
+
+print('Не забудь перезагрузить эту машину и клиент')
