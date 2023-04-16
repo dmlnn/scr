@@ -23,7 +23,9 @@ with open('/etc/rsyslog.conf', 'r') as f:
 with open('/etc/rsyslog.conf', 'w') as f:
   new1 = old.replace('#module(load=”imudp”)', 'module(load=”imudp”)')
   new2 = new1.replace('#input(type=”imudp” port=”514”)', 'input(type=”imudp” port=”514”)')
-  f.write(new2)
+  new3 = new2.replace('#$ModLoad imudp', '$ModLoad imudp')
+  new4 = new3.replace('#$UDPServerRun 514', '$UDPServerRun 514')
+  f.write(new4)
 
 for i in range(len(listok)):
   with open('/etc/rsyslog.conf', 'a') as f:
