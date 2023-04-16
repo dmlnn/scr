@@ -121,7 +121,7 @@ os.system('cat /etc/hosts')'''
   with open(f'scr-main/agent{n}_https', 'w+') as f:
     f.write(hostiki)
   os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
-  os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
+  os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent{n}_https')
   print('Agent otrabotal')
   
 def centos(ip_cl, n):
@@ -137,7 +137,7 @@ os.system('cat /etc/hosts')'''
   with open(f'scr-main/agent{n}_https', 'w+') as f:
     f.write(hostiki)
   os.system(f'sshpass -proot scp scr-main/agent_https root@{ip_cl}:/etc')
-  os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent_https')
+  os.system(f'sshpass -proot ssh root@{ip_cl} python3 /etc/agent{n}_https')
   print('Agent otrabotal')
 
 n = 0
